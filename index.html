@@ -36,7 +36,7 @@
             <div class="col-md-4 ">
                 <div class="withdraw status">
                     <h5>Withdraw</h5>
-                    <h2>$00</h2>
+                    <h2>$ <span id="currentWithdraw">00</span></h2>
                 </div>
             </div>
             <div class="col-md-4 ">
@@ -50,7 +50,8 @@
             <div class="col-md-6 ">
                 <div class="submit-area">
                     <h4>Deposit</h4>
-                    <input id="depositAmount" type="text" class="form-control" placeholder="$ amount you want to deposit">
+                    <input id="depositAmount" type="text" class="form-control"
+                        placeholder="$ amount you want to deposit">
                     <br>
                     <button id="addDeposit" class="btn btn-success">Deposit</button>
                 </div>
@@ -58,7 +59,8 @@
             <div class="col-md-6">
                 <div class="submit-area">
                     <h4>Withdraw</h4>
-                    <input id="withdrawAmount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                    <input id="withdrawAmount" type="text" class="form-control"
+                        placeholder="$ amount you want to withdraw">
                     <br>
                     <button id="addWithdraw" class="btn btn-success">Withdraw</button>
                 </div>
@@ -79,52 +81,44 @@
 
         //deposit button event handler
         const depositBtn = document.getElementById("addDeposit");
-        depositBtn.addEventListener("click", function(){
-            
+        depositBtn.addEventListener("click", function () {
+
             const depositNumber = getInputNumber("depositAmount");
 
             updateSpanText("currentDeposit", depositNumber);
             updateSpanText("currentBalance", depositNumber);
 
-            document.getElementById("depositAmount").value ="";
+            document.getElementById("depositAmount").value = "";
         })
+
         //withdraw button even handler
         const withdrawBtn = document.getElementById("addWithdraw");
-        withdrawBtn.addEventListener("click", function(){
+        withdrawBtn.addEventListener("click", function () {
+
             const withdrawNumber = getInputNumber("withdrawAmount");
-            console.log(withdrawNumber);
 
+            updateSpanText("currentWithdraw", withdrawNumber);
+            updateSpanText("currentBalance", -1 * withdrawNumber);
 
-
+            document.getElementById("withdrawAmount").value = "";
         })
-        function getInputNumber(id){
+
+        //get input value from input field and covert it to number
+        function getInputNumber(id) {
             const amount = document.getElementById(id).value;
             const amountNumber = parseFloat(amount);
             return amountNumber;
 
         }
 
-            //create function for update span text
-            function updateSpanText(id, depositNumber){
-                const current = document.getElementById(id).innerText;
-                const currentNumber = parseFloat(current);
-                const total = depositNumber + currentNumber;
-                document.getElementById(id).innerText = total;
-            }
-           
-
-
+        //create function for update span text
+        function updateSpanText(id, addedNumber) {
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+            const total = addedNumber + currentNumber;
+            document.getElementById(id).innerText = total;
             
-            
-
-            // const currentBalance = document.getElementById("currentBalance").innerText;
-            // const currentBalanceNumber = parseFloat(currentBalance);
-            // const totalBalance = depositNumber + currentBalanceNumber;  
-            // document.getElementById("currentBalance").innerText = totalBalance;
-
-            
-
-        
+        }
     </script>
 </body>
 
